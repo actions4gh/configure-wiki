@@ -1,9 +1,7 @@
 #!/usr/bin/env -S deno run -Aq
 import process from "node:process";
 import { readFile, writeFile, readdir, rename } from "node:fs/promises";
-import { existsSync } from "node:fs";
 import * as core from "npm:@actions/core@^1.10.0";
-import { $ } from "npm:zx@^7.2.2";
 import { remark } from "npm:remark@^14.0.3";
 import { visit } from "npm:unist-util-visit@^5.0.0";
 
@@ -25,7 +23,7 @@ const plugin = () => (tree: any) =>
 
     console.log(`Rewrote ${x} to ${node.url}`);
   });
-for (const file of await readdir($.cwd!)) {
+for (const file of await readdir(core.getInput("path"))) {
   if (!mdRe.test(file)) {
     continue;
   }
