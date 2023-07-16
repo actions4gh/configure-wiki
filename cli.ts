@@ -28,11 +28,11 @@ for (const file of await readdir(core.getInput("path"))) {
     continue;
   }
 
-  if (file.slice(0, mdRe.exec(file)!.index) === "README") {
-    await rename(file, "Home.md");
-  }
-
   let md = await readFile(file, "utf-8");
   md = (await remark().use(plugin).process(md)).toString();
   await writeFile(file, md);
+
+  if (file.slice(0, mdRe.exec(file)!.index) === "README") {
+    await rename(file, "Home.md");
+  }
 }
