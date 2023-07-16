@@ -20,7 +20,7 @@ const markdownExtensions = [
 
 const plugin = () => (tree: any) =>
   visit(tree, ["link", "linkReference"], (node: any) => {
-    const fakeURL = new URL(node.url, "file:///-/");
+    const fakeURL = new URL(node.url, "file:///C:/-/");
     const fakePath = fileURLToPath(fakeURL);
     const { ext: extension, name: nameWithoutExtension } = parse(fakePath);
 
@@ -28,7 +28,7 @@ const plugin = () => (tree: any) =>
       console.log(`${node.url} is not a Markdown link`);
       return;
     }
-    if (!fakeURL.href.startsWith("file:///-/")) {
+    if (!fakeURL.href.startsWith("file:///C:/-/")) {
       console.log(`${node.url} is not a local "./"-like link`);
     }
 
