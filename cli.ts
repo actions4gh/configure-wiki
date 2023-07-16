@@ -8,16 +8,21 @@ import { visit } from "npm:unist-util-visit@^5.0.0";
 const mdRe = /\.(?:md|markdown|mdown|mkdn|mkd|mdwn|mkdown|ron)$/;
 const plugin = () => (tree: any) =>
   visit(tree, ["link", "linkReference"], (node: any) => {
-    if (!mdRe.test(node.url)) {
+    const x = node.url;
+
+    const fakeURL = new URL(node.url, "file:///-/");
+    if (!mdRe.test(fakeURL.pathname)) {
+      console.log(`${node.url} is not a Markdown file`);
       return;
     }
-    if (!new URL(node.url, "file:///-/").href.startsWith("file:///-/")) {
+    if (!fakeURL.href.startsWith("file:///-/")) {
+      console.log(`${node.url} is not "./"-like`);
       return;
     }
 
-    const x = node.url;
     node.url = node.url.replace(mdRe, "");
-    if (new URL(node.url, "file:///-/").href === "file:///-/README") {
+    const fakeURL2 = new URL(node.url, "file:///-/");
+    if (fakeURL2.href === "file:///-/README") {
       node.url = "Home";
     }
 
@@ -34,6 +39,6 @@ for (const file of await readdir(core.getInput("path"))) {
 
   if (file.slice(0, mdRe.exec(file)!.index) === "README") {
     await rename(file, "Home.md");
-    console.log(`Renamed ${file} to Home.md`)
+    console.log(`Renamed ${file} to Home.md`);
   }
 }
