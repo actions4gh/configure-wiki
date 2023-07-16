@@ -4,41 +4,61 @@ import { readFile, writeFile, readdir, rename } from "node:fs/promises";
 import * as core from "npm:@actions/core@^1.10.0";
 import { remark } from "npm:remark@^14.0.3";
 import { visit } from "npm:unist-util-visit@^5.0.0";
+import { resolve, extname, parse } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const mdRe = /\.(?:md|markdown|mdown|mkdn|mkd|mdwn|mkdown|ron)$/;
+const markdownExtensions = [
+  "md",
+  "markdown",
+  "mdown",
+  "mkdn",
+  "mkd",
+  "mdwn",
+  "mkdown",
+  "ron",
+];
+
+console.table(process.env);
+console.log(core.getInput("path"));
+
 const plugin = () => (tree: any) =>
   visit(tree, ["link", "linkReference"], (node: any) => {
-    const x = node.url;
-
     const fakeURL = new URL(node.url, "file:///-/");
-    if (!mdRe.test(fakeURL.pathname)) {
-      console.log(`${node.url} is not a Markdown file`);
+    const fakePath = fileURLToPath(fakeURL);
+    const { ext: extension, name: nameWithoutExtension } = parse(fakePath);
+
+    if (!markdownExtensions.includes(extension.slice(1))) {
+      console.log(`${node.url} is not a Markdown link`);
       return;
     }
     if (!fakeURL.href.startsWith("file:///-/")) {
-      console.log(`${node.url} is not "./"-like`);
-      return;
+      console.log(`${node.url} is not a local "./"-like link`);
     }
 
-    node.url = node.url.replace(mdRe, "");
-    const fakeURL2 = new URL(node.url, "file:///-/");
-    if (fakeURL2.href === "file:///-/README") {
-      node.url = "Home";
+    const oldNodeURL = node.url;
+    if (nameWithoutExtension.toLowerCase() === "readme") {
+      node.url = "Home" + fakeURL.search + fakeURL.hash;
+    } else {
+      node.url = nameWithoutExtension + fakeURL.search + fakeURL.hash;
     }
-
-    console.log(`Rewrote ${x} to ${node.url}`);
+    console.log(`Rewrote ${oldNodeURL} to ${node.url}`);
   });
 for (const file of await readdir(core.getInput("path"))) {
-  if (!mdRe.test(file)) {
+  const path = resolve(core.getInput("path"), file);
+  const extension = extname(path);
+  const nameWithoutExtension = parse(path).name;
+
+  if (!markdownExtensions.includes(extension.slice(1))) {
+    console.log(`${path} is not a Markdown file`);
     continue;
   }
 
-  let md = await readFile(file, "utf-8");
+  console.log(`Processing ${path}`);
+  let md = await readFile(path, "utf-8");
   md = (await remark().use(plugin).process(md)).toString();
-  await writeFile(file, md);
+  await writeFile(path, md);
 
-  if (file.slice(0, mdRe.exec(file)!.index) === "README") {
-    await rename(file, "Home.md");
-    console.log(`Renamed ${file} to Home.md`);
+  if (nameWithoutExtension.toLowerCase() === "readme") {
+    await rename(path, resolve(path, "../Home.md"));
   }
 }
