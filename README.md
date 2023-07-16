@@ -20,7 +20,7 @@ That way you can use the same links that work in your GitHub source control on
 the GitHub wiki!
 
 ```yml
-- uses: jcbhmr/source-links-to-github-wiki-links
+- uses: jcbhmr/preprocess-source-for-github-wiki
   with:
     path: wiki
 ```
