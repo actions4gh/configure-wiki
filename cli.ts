@@ -34,5 +34,6 @@ for (const file of await readdir(core.getInput("path"))) {
 
   if (file.slice(0, mdRe.exec(file)!.index) === "README") {
     await rename(file, "Home.md");
+    console.log(`Renamed ${file} to Home.md`)
   }
 }
