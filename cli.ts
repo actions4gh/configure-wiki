@@ -18,9 +18,6 @@ const markdownExtensions = [
   "ron",
 ];
 
-console.table(process.env);
-console.log(core.getInput("path"));
-
 const plugin = () => (tree: any) =>
   visit(tree, ["link", "linkReference"], (node: any) => {
     const fakeURL = new URL(node.url, "file:///-/");
@@ -43,6 +40,7 @@ const plugin = () => (tree: any) =>
     }
     console.log(`Rewrote ${oldNodeURL} to ${node.url}`);
   });
+
 for (const file of await readdir(core.getInput("path"))) {
   const path = resolve(core.getInput("path"), file);
   const extension = extname(path);
