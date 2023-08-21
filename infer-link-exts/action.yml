@@ -1,0 +1,22 @@
+name: GitHub Wiki Action
+description: 🔗 Rewrite links and file names to work better with GitHub wikis
+
+branding:
+  icon: link
+  color: blue
+
+inputs:
+  path:
+    description: >-
+      The directory to process. Defaults to '.', the current directory.
+    required: true
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - id: main
+      run: '"${GITHUB_ACTION_PATH%/}/cliw"'
+      shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
