@@ -68,3 +68,4 @@ future AsciiDoc and other formats may be supported.
   `https://github.com/octocat/project/wiki/`.
 
 [actions4gh/deploy-wiki]: https://github.com/actions4gh/deploy-wiki
+[actions4gh/configure-wiki/reverse]: https://github.com/actions4gh/configure-wiki/tree/main/reverse
