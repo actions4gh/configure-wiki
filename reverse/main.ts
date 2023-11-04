@@ -95,8 +95,3 @@ for (const file of await readdir(core.getInput("path"))) {
     console.log(`Renamed ${path} to README.md`);
   }
 }
-
-core.setOutput(
-  "base-url",
-  `${process.env.GITHUB_SERVER}/${process.env.GITHUB_REPOSITORY}/tree/main/`
-);
