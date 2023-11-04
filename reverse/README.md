@@ -35,17 +35,18 @@ on:
   schedule:
     - cron: "8 14 * * *"
 jobs:
-  download-wiki:
+  commit-wiki:
     if: github.event_name != 'push'
     permissions:
       contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: rm -rf wiki
-      - uses: actions4gh/download-wiki@v1
+      - uses: actions/checkout@v4
         with:
+          repository: ${{ github.repository }}.wiki
           path: wiki
+      - run: rm -rf wiki/.git
       - uses: actions4gh/configure-wiki/reverse@v1
       - uses: stefanzweifel/git-auto-commit-action@v5
 ```
