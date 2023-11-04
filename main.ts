@@ -78,3 +78,8 @@ for (const file of await readdir(core.getInput("path"))) {
     await rename(path, resolve(path, "../Home.md"));
   }
 }
+
+core.setOutput(
+  "base-url",
+  `${process.env.GITHUB_SERVER}/${process.env.GITHUB_REPOSITORY}/wiki/`
+);
