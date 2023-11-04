@@ -6,7 +6,6 @@
 
 ```md
 <!-- README.md input -->
-
 [Other page](./Other-page.md)
 ```
 
@@ -14,7 +13,6 @@
 
 ```md
 <!-- Home.md result -->
-
 [Other page](./Other-page)
 ```
 
