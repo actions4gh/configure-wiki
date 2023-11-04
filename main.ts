@@ -36,7 +36,7 @@ const markdownExtensions = [
   "ron",
 ];
 
-const plugin = () => (tree: any) =>{
+const plugin = () => (tree: any) => {
   visit(tree, ["link", "linkReference"], (node: any) => {
     const fakeURL = new URL(node.url, "file:///Z:/-/");
     const { ext, name } = parse(fileURLToPath(fakeURL));
@@ -56,12 +56,13 @@ const plugin = () => (tree: any) =>{
       node.url = name + fakeURL.search + fakeURL.hash;
     }
     console.log(`Rewrote ${oldNodeURL} to ${node.url}`);
-  });}
+  });
+};
 
 for (const file of await readdir(core.getInput("path"))) {
   const path = resolve(core.getInput("path"), file);
   const extension = extname(path);
-  const {name} = parse(path);
+  const { name } = parse(path);
 
   if (!markdownExtensions.includes(extension.slice(1))) {
     console.log(`${path} is not a Markdown file`);

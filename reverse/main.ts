@@ -73,7 +73,7 @@ const plugin = () => (tree: any) => {
     }
     console.log(`Rewrote ${oldNodeURL} to ${node.url}`);
   });
-}
+};
 
 for (const file of await readdir(core.getInput("path"))) {
   const path = resolve(core.getInput("path"), file);
