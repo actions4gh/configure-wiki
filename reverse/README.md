@@ -53,46 +53,6 @@ jobs:
 👆 This GitHub workflow will download the content from the GitHub wiki tab and
 un-wiki-ify the links before pushing the result to the source repository.
 
-### Bidirectional wiki sync
+👀 Check out [actions4gh/download-wiki]!
 
-Sometimes you want two-way wiki sync so that edits from the repository are
-reflected in the wiki and edits from the wiki are committed to the repository.
-You've seen above how to go from the source repository to the wiki tab. Here's a
-complete demo using [actions4gh/deploy-wiki] to push the content to the wiki and
-[actions4gh/download-wiki] to perform the reverse of downloading the wiki
-content and commiting it to the source repository.
-
-```yml
-# .github/workflows/sync-wiki.yml
-name: Sync wiki
-on:
-  push:
-    branches: "main"
-    paths: wiki/**
-  gollum:
-  schedule:
-    - cron: "8 14 * * *"
-jobs:
-  deploy-wiki:
-    if: github.event_name == 'push'
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions4gh/configure-wiki@v1
-      - uses: actions4gh/deploy-wiki@v1
-  download-wiki:
-    if: github.event_name != 'push'
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: rm -rf wiki
-      - uses: actions4gh/download-wiki@v1
-        with:
-          path: wiki
-      - uses: actions4gh/configure-wiki/reverse@v1
-      - uses: stefanzweifel/git-auto-commit-action@v5
-```
+[actions4gh/download-wiki]: https://github.com/actions4gh/download-wiki
