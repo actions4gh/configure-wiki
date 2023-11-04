@@ -1,4 +1,4 @@
-# Configure for GitHub wiki (reverse)
+# Configure GitHub wiki (reverse)
 
 📄 Transform `./My-page` wiki links into `./My-page.md` source links
 
