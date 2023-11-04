@@ -53,7 +53,3 @@ jobs:
 
 👆 This GitHub workflow will download the content from the GitHub wiki tab and
 un-wiki-ify the links before pushing the result to the source repository.
-
-👀 Check out [actions4gh/download-wiki]!
-
-[actions4gh/download-wiki]: https://github.com/actions4gh/download-wiki
