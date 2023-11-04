@@ -53,3 +53,9 @@ jobs:
 
 👆 This GitHub workflow will download the content from the GitHub wiki tab and
 un-wiki-ify the links before pushing the result to the source repository.
+
+### Inputs
+
+- **`path`:** Where the wiki files are. This must be a folder. Defaults to
+  `wiki/`. All files one level deep (not recursively) in this folder will be
+  processed.
