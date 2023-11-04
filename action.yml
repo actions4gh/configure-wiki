@@ -7,13 +7,8 @@ branding:
 
 inputs:
   path:
-    default: .
+    default: wiki
 
 runs:
-  using: composite
-  steps:
-    - id: main
-      run: '"${GITHUB_ACTION_PATH%/}/mainw"'
-      shell: bash
-      env:
-        INPUT_PATH: ${{ inputs.path }}
+  using: node20
+  main: _main.mjs #=> main.ts

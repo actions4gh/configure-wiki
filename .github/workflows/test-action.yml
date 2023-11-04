@@ -3,16 +3,12 @@ on:
   push:
     branches: "main"
     paths-ignore:
-      - .gitignore
-      - .gitattributes
       - LICENSE
       - README.md
       - .github/**
       - "!.github/workflows/test-action.yml"
   pull_request:
     paths-ignore:
-      - .gitignore
-      - .gitattributes
       - LICENSE
       - README.md
       - .github/**
@@ -21,7 +17,7 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 jobs:
-  test-action-process-test:
+  test-action:
     strategy:
       fail-fast: false
       matrix:

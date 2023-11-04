@@ -1,0 +1,9 @@
+inputs:
+  path:
+    description: >-
+      The directory to process. Defaults to 'wiki'.
+    default: wiki
+
+runs:
+  using: node20
+  main: _main.mjs #=> main.ts
