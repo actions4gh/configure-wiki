@@ -1,5 +1,5 @@
-name: GitHub Wiki Action
-description: 🔗 Rewrite links and file names to work better with GitHub wikis
+name: Configure GitHub wiki
+description: 📄 Transform ./My-page.md source links into ./My-page wiki links
 
 branding:
   icon: link
