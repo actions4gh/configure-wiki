@@ -1,11 +1,12 @@
-# Configure for GitHub wiki (reverse)
+# Configure for GitHub wiki
 
-📄 Transform `./My-page` wiki links into `./My-page.md` source links
+📄 Transform `./My-page.md` source links into `./My-page` wiki links
 
 <table align=center><td>
 
 ```md
 <!-- README.md input -->
+
 [Other page](./Other-page.md)
 ```
 
@@ -13,12 +14,17 @@
 
 ```md
 <!-- Home.md result -->
+
 [Other page](./Other-page)
 ```
 
 </table>
 
-🔁 See also [actions4gh/configure-wiki/reverse] which is the inverse of this action. It converts wiki-style links to source-style.
+🔗 Properly rewrites links to work when deployed to the wiki tab \
+📛 Also renames `README.md` to `Home.md`
+
+🔁 See also [actions4gh/configure-wiki/reverse] which is the inverse of this
+action. It converts wiki-style links to source-style.
 
 ## Usage
 
@@ -46,5 +52,19 @@ jobs:
 ```
 
 👀 Check out [actions4gh/deploy-wiki]!
+
+⚠️ Currently this Action only processes Markdown links in Markdown files. In the
+future AsciiDoc and other formats may be supported.
+
+### Inputs
+
+- **`path`:** Where the wiki files are. This must be a folder. Defaults to
+  `wiki/`. All files one level deep (not recursively) in this folder will be
+  processed.
+
+### Outputs
+
+- **`base-url`:** The base URL of the wiki. Usually this is something like
+  `https://github.com/octocat/project/wiki/`.
 
 [actions4gh/deploy-wiki]: https://github.com/actions4gh/deploy-wiki

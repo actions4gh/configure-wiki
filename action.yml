@@ -7,7 +7,16 @@ branding:
 
 inputs:
   path:
+    description: >
+      Where the wiki files are. This must be a folder. Defaults to wiki/. All
+      files one level deep (not recursively) in this folder will be processed.
     default: wiki
+
+outputs:
+  base-url:
+    description: >
+      The base URL of the wiki. Usually this is something like
+      https://github.com/octocat/project/wiki/.
 
 runs:
   using: node20
