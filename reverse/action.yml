@@ -6,4 +6,4 @@ inputs:
 
 runs:
   using: node20
-  main: _main.mjs #=> main.ts
+  main: _main.mjs
