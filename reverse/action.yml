@@ -1,6 +1,6 @@
 inputs:
   path:
-    description: >-
+    description: >
       The directory to process. Defaults to 'wiki'.
     default: wiki
 
