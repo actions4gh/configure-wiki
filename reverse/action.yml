@@ -1,7 +1,8 @@
 inputs:
   path:
     description: >
-      The directory to process. Defaults to 'wiki'.
+      Where the wiki files are. This must be a folder. Defaults to 'wiki/'. All
+      files one level deep (not recursively) in this folder will be processed.
     default: wiki
 
 runs:

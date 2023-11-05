@@ -18,18 +18,23 @@
 
 </table>
 
+🔗 Properly rewrites extensionless links to work in GitHub's source viewer \
+📛 Also renames `Home.md` to `README.md`
+
+🔁 See also [actions4gh/configure-wiki] which is the inverse of this action. It
+converts source-style links to wiki-style.
+
 ## Usage
 
 ![GitHub Actions](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Actions&color=2088FF&logo=GitHub+Actions&logoColor=FFFFFF&label=)
 ![GitHub](https://img.shields.io/static/v1?style=for-the-badge&message=GitHub&color=181717&logo=GitHub&logoColor=FFFFFF&label=)
 
-⚠️ This is only useful in a very specific scenario: un-wiki-ifying links so that
-they work in the normal GitHub source viewer. This is only useful if you're
-downloading published wiki content and committing it to your source repository.
+⚠️ This is only useful downloading published wiki content and committing it to
+your source repository.
 
 ```yml
-# .github/workflows/download-wiki.yml
-name: download-wiki
+# .github/workflows/commit-wiki.yml
+name: commit-wiki
 on:
   gollum:
   schedule:
