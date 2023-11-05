@@ -1,4 +1,4 @@
-// 2>/dev/null; v=1.38.0; [ -d "${i="$RUNNER_TOOL_CACHE/deno/$v/${RUNNER_ARCH,,}"}" ] || curl -fsSL https://deno.land/x/install/install.sh |DENO_INSTALL="$i" sh -s "v$v" &>/dev/null; exec "$i/bin/deno" run -Aq "$0" "$@"
+// 2>/dev/null; v=1.38.0; [ -d "${i="$RUNNER_TOOL_CACHE/deno/$v/$(echo "$RUNNER_ARCH" | tr '[:upper:]' '[:lower:]')"}" ] || curl -fsSL https://deno.land/x/install/install.sh |DENO_INSTALL="$i" sh -s "v$v" &>/dev/null; exec "$i/bin/deno" run -Aq "$0" "$@"
 import process from "node:process";
 import { readFile, writeFile, readdir, rename } from "node:fs/promises";
 import * as core from "npm:@actions/core@^1.10.0";
