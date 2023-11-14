@@ -14,7 +14,7 @@ on:
       - "!reverse/README.md"
       - .github/workflows/test-reverse-action.yml
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   test-reverse-action:
