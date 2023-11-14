@@ -29,5 +29,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run -w ./reverse build
-        working-directory: reverse
       - uses: ./reverse
+        with:
+          path: test
