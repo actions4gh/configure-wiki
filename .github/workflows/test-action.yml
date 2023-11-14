@@ -20,6 +20,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   test-action:
+    concurrency: wiki
     permissions:
       contents: write
     runs-on: ubuntu-latest
