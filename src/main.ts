@@ -1,8 +1,8 @@
 import process from "node:process";
 import { readFile, writeFile, readdir, rename } from "node:fs/promises";
-import * as core from "npm:@actions/core@^1.10.0";
-import { remark } from "npm:remark@^14.0.3";
-import { visit } from "npm:unist-util-visit@^5.0.0";
+import * as core from "@actions/core";
+import { remark } from "remark";
+import { visit } from "unist-util-visit";
 import { resolve, extname, parse } from "node:path";
 import { fileURLToPath } from "node:url";
 

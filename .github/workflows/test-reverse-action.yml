@@ -18,14 +18,16 @@ concurrency:
   cancel-in-progress: true
 jobs:
   test-reverse-action:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./reverse
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          path: reverse/test
-      - run: cat reverse/test/README.md
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run -w ./reverse build
+        working-directory: reverse
+      - uses: ./reverse

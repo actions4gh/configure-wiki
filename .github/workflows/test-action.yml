@@ -3,14 +3,16 @@ on:
   push:
     branches: "main"
     paths-ignore:
-      - LICENSE
+      - .gitignore
       - README.md
+      - LICENSE
       - .github/**
       - "!.github/workflows/test-action.yml"
   pull_request:
     paths-ignore:
-      - LICENSE
+      - .gitignore
       - README.md
+      - LICENSE
       - .github/**
       - "!.github/workflows/test-action.yml"
 concurrency:
@@ -18,14 +20,15 @@ concurrency:
   cancel-in-progress: true
 jobs:
   test-action:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          path: test
-      - run: cat test/Home.md
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: ./
